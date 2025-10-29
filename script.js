@@ -30,5 +30,35 @@ function getHumanChoice() {
   return humanChoice.toLowerCase();
 }
 
+function playRound(humanChoice, computerChoice) {
+  if (humanChoice === computerChoice) {
+    return `Draw! You both played ${humanChoice}. No points to anyone!`;
+  } else if (humanChoice === "rock") {
+    if (computerChoice === "paper") {
+      computerScore++;
+      return `You chose: ${humanChoice} and the computer chose: ${computerChoice}. You lose! Paper beats Rock. One point to the computer!`;
+    } else {
+      humanScore++;
+      return `You chose: ${humanChoice} and the computer chose: ${computerChoice}. You win! Rock beats Scissors. One point to you!`;
+    }
+  } else if (humanChoice === "paper") {
+    if (computerChoice === "scissors") {
+      computerScore++;
+      return `You chose: ${humanChoice} and the computer chose: ${computerChoice}. You lose! Scissors beats Paper. One point to the computer!`;
+    } else {
+      humanScore++;
+      return `You chose: ${humanChoice} and the computer chose: ${computerChoice}. You win! Paper beats Rock. One point to you!`;
+    }
+  } else if (humanChoice === "scissors") {
+    if (computerChoice === "rock") {
+      computerScore++;
+      return `You chose: ${humanChoice} and the computer chose: ${computerChoice}. You lose! Rock beats Scissors. One point to the computer!`;
+    } else {
+      humanScore++;
+      return `You chose: ${humanChoice} and the computer chose: ${computerChoice}. You win! Scissors beats Paper. One point to you!`;
+    }
+  }
+}
+
 let humanScore = 0;
 let computerScore = 0;
