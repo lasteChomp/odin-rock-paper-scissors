@@ -13,4 +13,20 @@ function getComputerChoice() {
   return choiceString;
 }
 
-console.log(getComputerChoice());
+function getHumanChoice() {
+  const humanChoice = String(
+    prompt("Please enter one of the choices: rock, paper, scissors")
+  );
+
+  if (
+    humanChoice.toLowerCase() !== "rock" &&
+    humanChoice.toLowerCase() !== "paper" &&
+    humanChoice.toLowerCase() !== "scissors"
+  ) {
+    return "Please enter one of the choises";
+  }
+
+  return humanChoice.toLowerCase();
+}
+
+console.log(getHumanChoice());
