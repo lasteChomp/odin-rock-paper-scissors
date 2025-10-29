@@ -23,7 +23,8 @@ function getHumanChoice() {
     humanChoice.toLowerCase() !== "paper" &&
     humanChoice.toLowerCase() !== "scissors"
   ) {
-    return "Please enter one of the choises";
+    alert("Please enter one of the choises");
+    getHumanChoice();
   }
 
   return humanChoice.toLowerCase();
