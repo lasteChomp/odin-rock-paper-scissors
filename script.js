@@ -8,7 +8,7 @@ function getHumanChoice() {
 
   if (!["rock", "paper", "scissors"].includes(choice)) {
     alert("Invalid choice. Try again!");
-    return getHumanChoice(); // recursive çağrıyı *return* ile döndürdük
+    return getHumanChoice();
   }
 
   return choice;
@@ -56,4 +56,4 @@ function playGame() {
 let humanScore = 0;
 let computerScore = 0;
 
-playGame();
+// playGame();
