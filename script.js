@@ -1,22 +1,27 @@
+const choices = document.querySelectorAll(".opaque");
+const results = document.querySelector(".results");
+const playAgain = document.querySelector(".btn-play");
+const playAgainBtn = document.querySelector(".btn-play > button");
+const scores = document.querySelectorAll(".scores > p");
+
+const pHumanScore = scores[0];
+const pComputerScore = scores[1];
+const pHumanScoreRaw = scores[0].textContent.slice(0, -1);
+const pComputerScoreRaw = scores[1].textContent.slice(0, -1);
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
   const choices = ["rock", "paper", "scissors"];
   return choices[Math.floor(Math.random() * choices.length)];
 }
 
-function getHumanChoice() {
-  const choice = prompt("Please enter rock, paper, or scissors:").toLowerCase();
+function playGame(e) {
+  const computer = getComputerChoice();
 
-  if (!["rock", "paper", "scissors"].includes(choice)) {
-    alert("Invalid choice. Try again!");
-    return getHumanChoice();
-  }
-
-  return choice;
-}
-
-function playRound(human, computer) {
-  if (human === computer) {
-    return `Draw! You both played ${human}.`;
+  if (e.target.alt === computer) {
+    results.textContent = `Draw! You both played ${e.target.alt}.`;
+    return;
   }
 
   const winConditions = {
@@ -25,35 +30,47 @@ function playRound(human, computer) {
     scissors: "paper",
   };
 
-  const humanWins = winConditions[human] === computer;
+  const humanWins = winConditions[e.target.alt] === computer;
 
   if (humanWins) {
     humanScore++;
-    return `You win! ${human} beats ${computer}.`;
+    pHumanScore.textContent = `${pHumanScoreRaw}  ${humanScore}`;
+    results.textContent = `You win! ${e.target.alt} beats ${computer}.`;
   } else {
     computerScore++;
-    return `You lose! ${computer} beats ${human}.`;
+    pComputerScore.textContent = `${pComputerScoreRaw}  ${computerScore}`;
+    results.textContent = `You lose! ${computer} beats ${e.target.alt}.`;
+  }
+
+  if (humanScore === 5 || computerScore === 5) {
+    const winner =
+      humanScore === 5 ? "You won the game!" : "Computer won the game!";
+    results.textContent = `${winner} 🎉`;
+
+    choices.forEach((choice) => {
+      choice.removeEventListener("click", playGame);
+    });
+
+    playAgain.style.display = "block";
   }
 }
 
-function playGame() {
-  for (let i = 0; i < 5; i++) {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    console.log(playRound(humanChoice, computerChoice));
-    console.log(`Score → You: ${humanScore}, Computer: ${computerScore}\n`);
-  }
-
-  if (humanScore === computerScore) {
-    console.log(`It's a draw! Final score ${humanScore}:${computerScore}`);
-  } else if (humanScore > computerScore) {
-    console.log(`You win the game! Final score ${humanScore}:${computerScore}`);
-  } else {
-    console.log(`Computer wins! Final score ${humanScore}:${computerScore}`);
-  }
+function enableGame() {
+  choices.forEach((choice) => {
+    choice.addEventListener("click", playGame);
+  });
 }
 
-let humanScore = 0;
-let computerScore = 0;
+function resetGame() {
+  humanScore = 0;
+  computerScore = 0;
+  pHumanScore.textContent = `${pHumanScoreRaw} ${humanScore}`;
+  pComputerScore.textContent = `${pComputerScoreRaw} ${computerScore}`;
+  results.textContent = "";
+  playAgain.style.display = "none";
+  enableGame();
+}
 
-// playGame();
+enableGame();
+
+playAgainBtn.addEventListener("click", resetGame);

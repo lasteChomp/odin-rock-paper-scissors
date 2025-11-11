@@ -52,12 +52,13 @@ h1 {
   justify-content: center;
 }
 
-.choices > div {
+.choices > img {
   margin: 0 20px;
 }
 
 .btn-play {
   text-align: center;
+  display: none;
 }
 
 button {
@@ -81,6 +82,12 @@ button:hover {
   font-size: 1.2rem;
   color: #333;
   font-weight: 500;
+}
+
+.scores {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
 }
 
 .opaque {
